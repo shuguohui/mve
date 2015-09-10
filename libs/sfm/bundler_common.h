@@ -144,7 +144,11 @@ Viewport::Viewport (void)
 inline bool
 Track::is_valid (void) const
 {
-    return !std::isnan(this->pos[0]);
+#if _MSC_VER <= 1700 
+    return !_isnan(this->pos[0]);
+#else
+	return !std::isnan(this->pos[0]);
+#endif
 }
 
 SFM_BUNDLER_NAMESPACE_END

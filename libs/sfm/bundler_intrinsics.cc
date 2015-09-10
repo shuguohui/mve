@@ -46,8 +46,17 @@ Intrinsics::compute (mve::Scene::Ptr scene, ViewportList* viewports)
     if (!this->unknown_cameras.empty())
     {
         std::cout << "Camera models not in database:" << std::endl;
-        for (auto item : this->unknown_cameras)
-            std::cout << "  " << item.first << ": " << item.second << std::endl;
+#if _MSC_VER <= 1700 
+		for (std::map<std::string, int>::iterator iter = this->unknown_cameras.begin();
+			iter != this->unknown_cameras.end();
+			++iter)
+		{
+			std::cout << "  " << iter->first << ": " << iter->second << std::endl;
+		}
+#else
+		for (auto item : this->unknown_cameras)
+			std::cout << "  " << item.first << ": " << item.second << std::endl;
+#endif
     }
 }
 
